@@ -138,12 +138,12 @@ public class GameWorld extends Screen {
         //lives
 
         //p1
-        Text.of("\u2764".repeat(player.lives)).withStyle(Style.EMPTY.outlined(true).color(Colors.RED))
+        Text.of("\u2764".repeat(Math.max(player.lives, 0))).withStyle(Style.EMPTY.outlined(true).color(Colors.RED))
                 .render(VertexConsumer.MAIN, matrices, 4, height - 4, Alignment.BOTTOM_LEFT);
 
         //p2
         if (hasP2) {
-            Text.of("\u2764".repeat(player2.lives)).withStyle(Style.EMPTY.outlined(true).color(Colors.RED))
+            Text.of("\u2764".repeat(Math.max(player2.lives, 0))).withStyle(Style.EMPTY.outlined(true).color(Colors.RED))
                     .render(VertexConsumer.MAIN, matrices, width - 4, height - 4, Alignment.BOTTOM_RIGHT);
         } else if (!gameOver) {
             Text.of("P2 Press ATTACK").withStyle(Style.EMPTY.outlined(true).color(time % 40 < 20 ? Colors.YELLOW : Colors.LIGHT_GRAY))
@@ -179,11 +179,17 @@ public class GameWorld extends Screen {
     public void die(Player player) {
         Player other = player == this.player ? this.player2 : this.player;
         player.lives--;
+        player.power = 0;
 
-        if (player.lives <= 0) {
+        if (player.lives < 0) {
+            if (hasP2 && other.lives > 0) {
+                other.lives--;
+                return;
+            }
+
             player.removed = true;
 
-            if ((!hasP2 || other.lives <= 0) && !gameOver) {
+            if ((!hasP2 || other.lives < 0) && !gameOver) {
                 gameOver = true;
                 System.out.println("Game Over! Score: " + score);
                 toggleGameOver();
@@ -211,6 +217,7 @@ public class GameWorld extends Screen {
         score = 0;
         time = 0;
         lastWaveTime = 0;
+        hasP2 = false;
         gameOver = false;
 
         if (gameOverContainer != null)

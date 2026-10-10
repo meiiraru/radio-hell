@@ -44,6 +44,8 @@ public class Enemy extends Entity {
                     if (hp <= 0) {
                         removed = true;
                         GameWorld.INSTANCE.score(100);
+                        if (Math.random() < 0.33f)
+                            GameWorld.INSTANCE.addEntity(new Collectable(x, y));
                         return;
                     }
                 }

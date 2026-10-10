@@ -6,7 +6,7 @@ import cinnamon.render.batch.VertexConsumer;
 import cinnamon.utils.Resource;
 import org.joml.Math;
 
-public class Entity {
+public abstract class Entity {
 
     public final int w, h;
     public final Resource texture;

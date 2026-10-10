@@ -15,6 +15,7 @@ public class Player extends Entity {
     public final int playerIndex;
 
     public int lives = 3;
+    public int power = 0;
 
     public int attack = 0;
 
@@ -104,6 +105,34 @@ public class Player extends Entity {
         Bullet b = new Bullet(x, y - w / 2f - 8, attack, true);
         b.dy = -1;
         GameWorld.INSTANCE.addEntity(b);
+
+        //shot downwards
+        if (power >= 1) {
+            Bullet b2 = new Bullet(x, y + w / 2f + 8, attack, true);
+            b2.dy = 1;
+            GameWorld.INSTANCE.addEntity(b2);
+        }
+
+        //double shoot
+        if (power >= 2) {
+            Bullet b3 = new Bullet(x + 8, y - w / 2f - 8, attack, true);
+            b3.dy = -1;
+            b.x -= 8;
+            GameWorld.INSTANCE.addEntity(b3);
+        }
+
+        //diagonal shoot
+        if (power >= 3) {
+            Bullet b4 = new Bullet(x - 8, y - w / 2f - 8, attack, true);
+            b4.dy = -1;
+            b4.dx = -0.5f;
+            GameWorld.INSTANCE.addEntity(b4);
+
+            Bullet b5 = new Bullet(x + 8, y - w / 2f - 8, attack, true);
+            b5.dy = -1;
+            b5.dx = 0.5f;
+            GameWorld.INSTANCE.addEntity(b5);
+        }
     }
 
     @Override
@@ -126,6 +155,7 @@ public class Player extends Entity {
 
     public void reset() {
         this.lives = 3;
+        this.power = 0;
         this.attack = 0;
         this.removed = false;
         this.x = 300 / 2f;
