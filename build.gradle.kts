@@ -10,7 +10,7 @@ java {
 
 group = "com.github.meiiraru"
 version = "1.0.0"
-val mainClass = "hello_cinnamon.Main"
+val mainClass = "radio_hell.Main"
 
 //dependencies
 val cinnamonVersion = "0.5.4"
