@@ -1,0 +1,6 @@
+{
+  "tile_x": 3,
+  "tile_y": 1,
+  "frametime": 10,
+  "frames": [0, 1, 2, 1]
+}

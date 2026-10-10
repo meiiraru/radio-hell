@@ -8,6 +8,7 @@ import cinnamon.utils.Resource;
 import org.joml.Math;
 import org.lwjgl.glfw.GLFW;
 import radio_hell.GameWorld;
+import radio_hell.Main;
 
 public class Player extends Entity {
 
@@ -107,13 +108,16 @@ public class Player extends Entity {
 
     @Override
     public void render(MatrixStack matrices, float delta) {
-        super.render(matrices, delta);
-
         float x = Math.lerp(ox, this.x, delta);
         float y = Math.lerp(oy, this.y, delta);
 
         if (attack != 0)
-            VertexConsumer.MAIN.consume(GeometryHelper.circle(matrices, x, y - w / 2f - 8, 8, 16, 0xFF000000 | attack));
+            VertexConsumer.MAIN.consume(GeometryHelper.circle(matrices, x, y, w / 8f, 16, 0xFF000000 | attack));
+
+        super.render(matrices, delta);
+
+        if (!Main.debug)
+            return;
 
         float w = (this.w * 0.33f) / 2f;
         float h = (this.h * 0.33f) / 2f;

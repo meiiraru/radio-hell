@@ -1,11 +1,13 @@
 package radio_hell.world;
 
 import cinnamon.model.GeometryHelper;
+import cinnamon.model.Vertex;
 import cinnamon.render.MatrixStack;
 import cinnamon.render.batch.VertexConsumer;
 import cinnamon.utils.Resource;
 import org.joml.Math;
 import radio_hell.GameWorld;
+import radio_hell.Main;
 
 import javax.swing.*;
 
@@ -51,13 +53,17 @@ public class Enemy extends Entity {
 
     @Override
     public void render(MatrixStack matrices, float delta) {
-        super.render(matrices, delta);
+        float x = Math.lerp(ox, this.x, delta) - this.w / 2f;
+        float y = Math.lerp(oy, this.y, delta) - this.h / 2f;
 
-        float x = Math.lerp(ox, this.x, delta);
-        float y = Math.lerp(oy, this.y, delta);
-        VertexConsumer.MAIN.consume(
-                GeometryHelper.circle(matrices, x, y + w / 2f + 8, 8, 16, 0xFF000000 | color)
-        );
+        Vertex[] vertices = GeometryHelper.quad(matrices, x, y, w, h);
+        for (Vertex vertex : vertices)
+            vertex.color(color);
+
+        VertexConsumer.MAIN.consume(vertices, texture);
+
+        if (Main.debug)
+            VertexConsumer.MAIN.consume(GeometryHelper.circle(matrices, x, y + w / 2f + 8, 8, 16, 0xFF000000 | color));
     }
 
     private void shoot() {
@@ -77,7 +83,7 @@ public class Enemy extends Entity {
         dx /= len;
         dy /= len;
 
-        Bullet b = new Bullet(x, y + w / 2f + 8, 0xFFFFFFFF, false);
+        Bullet b = new Bullet(x, y + w / 2f + 8, 0xFFAA0000, false);
         b.speed = 8f;
         b.dx = dx;
         b.dy = dy;

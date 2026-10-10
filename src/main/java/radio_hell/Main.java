@@ -6,6 +6,8 @@ import cinnamon.events.Events;
 
 public class Main {
 
+    public static final boolean debug = false;
+
     public static void main(String... args) {
         //setup cinnamon flags
         Cinnamon.TITLE = "Radio Hell";

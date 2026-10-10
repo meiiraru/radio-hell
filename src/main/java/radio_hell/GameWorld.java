@@ -110,14 +110,16 @@ public class GameWorld extends Screen {
     @Override
     protected void renderChildren(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         //debug
-        Text.of("Entities: " + entities.size()).withStyle(Style.EMPTY.outlined(true))
-                .append("\n")
-                .append("Wave in: " + (lastWaveTime / 20) + "s")
-                .render(VertexConsumer.MAIN, matrices, 4, 4);
+        if (Main.debug) {
+            Text.of("Entities: " + entities.size()).withStyle(Style.EMPTY.outlined(true))
+                    .append("\n")
+                    .append("Wave in: " + (lastWaveTime / 20) + "s")
+                    .render(VertexConsumer.MAIN, matrices, 4, 4);
 
-        if (gameOver) {
-            super.renderChildren(matrices, mouseX, mouseY, delta);
-            return;
+            if (gameOver) {
+                super.renderChildren(matrices, mouseX, mouseY, delta);
+                return;
+            }
         }
 
         //score
