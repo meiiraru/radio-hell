@@ -33,6 +33,10 @@ public class MainMenu extends Screen {
         });
         mainMenu.addWidget(play);
 
+        //about button
+        Button about = new Btn(Text.of("About").withStyle(Style.EMPTY.outlined(true)), _ -> client.setScreen(new AboutScreen(this)));
+        mainMenu.addWidget(about);
+
         //exit button-
         Button exit = new Btn(Text.of("Exit").withStyle(Style.EMPTY.outlined(true).color(0xFFFF7272)), _ -> client.window.exit());
         mainMenu.addWidget(exit);
