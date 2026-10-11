@@ -85,7 +85,7 @@ public class Enemy extends Entity {
         dx /= len;
         dy /= len;
 
-        Bullet b = new Bullet(x, y + w / 2f + 8, 0xFFAA0000, false);
+        Bullet b = new Bullet(x, y + w / 2f + 8, 0xFFFFFFFF, false);
         b.speed = 8f;
         b.dx = dx;
         b.dy = dy;

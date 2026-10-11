@@ -9,10 +9,13 @@ import cinnamon.gui.widgets.types.Label;
 import cinnamon.model.GeometryHelper;
 import cinnamon.render.MatrixStack;
 import cinnamon.render.batch.VertexConsumer;
+import cinnamon.render.shader.PostProcess;
+import cinnamon.render.texture.Texture;
 import cinnamon.text.Style;
 import cinnamon.text.Text;
 import cinnamon.utils.Alignment;
 import cinnamon.utils.Colors;
+import cinnamon.utils.Resource;
 import cinnamon.world.gui.Hud;
 import org.lwjgl.glfw.GLFW;
 import radio_hell.world.Entity;
@@ -102,9 +105,32 @@ public class GameWorld extends Screen {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        //stars
+        Resource starsRes = new Resource("radio_hell", "textures/stars.png");
+        Texture stars = Texture.of(starsRes);
+        float parallaxX = (player.x / width) * 2f - 1f;
+        float parallaxY = (player.y / height) * 2f - 1f;
+        float parallaxStr = 20f;
+        float parallaxOffset = (client.ticks + delta) * 0.004f;
+
+        VertexConsumer.MAIN.consume(GeometryHelper.quad(matrices,
+                -parallaxStr + parallaxStr * parallaxX, -parallaxStr + parallaxStr * parallaxY,
+                width + parallaxStr * 2f, height + parallaxStr * 2f, -10f,
+                parallaxOffset, (float) width / stars.getWidth() + parallaxOffset, parallaxOffset, (float) height / stars.getHeight() + parallaxOffset
+        ), starsRes);
+
+        //entities
         for (Entity entity : entities)
             entity.render(matrices, delta);
+
+        //the stuff
         super.render(matrices, mouseX, mouseY, delta);
+
+        //vhs effect
+        PostProcess.apply(PostProcess.VHS.getShader(), (fb, s) -> {
+            s.setFloat("damagedHeight", 0f);
+            return PostProcess.VHS.uniformFunction().apply(fb, s);
+        }, false);
     }
 
     @Override

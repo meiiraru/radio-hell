@@ -93,7 +93,7 @@ tasks.register<Jar>("fatJar") {
 tasks.jar {
     archiveClassifier.set("")
     manifest.attributes["Main-Class"] = mainClass
-    from("LICENSE.md")
+    //from("LICENSE.md")
 }
 
 tasks.register<Exec>("packageApp") {

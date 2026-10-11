@@ -1,23 +1,29 @@
-# Hello Cinnamon
+# Radio Hell
 
-Template repository for projects utilizing the [Cinnamon Game Engine](https://github.com/meiiraru/Cinnamon).
+Wave matching bullet hell game!
+\
+Survive!
 
-This template provides a basic structure and setup to help you get started with Cinnamon quickly.
+Submission for the 3rd edition of the Unisinos Game Jam
 
-----------
+Made in 10h using [Cinnamon](https://github.com/meiiraru/Cinnamon), a custom game engine entirely made in Java, using OpenGL
 
-This template consists of:
-* The _gradle_ setup, with packaging (build) and dependency management.
-* The basic project structure with a main initializer for Cinnamon.
-* A simple example of a custom main menu using the Cinnamon UI system.
-* A basic example of a world with the player entity, terrain, and a respawning collectable item.
-* The structure to store and access namespaced resources (assets).
+## Controls:
 
-----------
+### PLAYER 1:
+**WASD** - move
+\
+**J** - RED attack
+\
+**K** - GREEN attack
+\
+**L** - BLUE attack
 
-### System Requirements
-
-As this project follows the Cinnamon Engine requirements, you must have:
-* Java 25 or higher
-* Support for OpenGL 4.3 or higher
-* Windows or Linux operating system (MacOS and FreeBSD support is not guaranteed)
+### PLAYER 2:
+**↑←↓→** - move
+\
+**NUMPAD 4** - RED attack
+\
+**NUMPAD 5** - GREEN attack
+\
+**NUMPAD 6** - BLUE attack
