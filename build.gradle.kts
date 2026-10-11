@@ -9,7 +9,7 @@ java {
 }
 
 group = "com.github.meiiraru"
-version = "1.0.0"
+version = "1.0.1"
 val mainClass = "radio_hell.Main"
 
 //dependencies
